@@ -29,7 +29,7 @@
   }
 
   .meeting-card {
-    height: 780px;
+    min-height: 1460px;
     border-radius: 16px;
   }
 }
