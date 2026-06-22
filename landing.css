@@ -987,6 +987,10 @@ ul {
     text-align: left;
   }
 
+  .img-deco {
+    display: none;
+  }
+
   .stats-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
