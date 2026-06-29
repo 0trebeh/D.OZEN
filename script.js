@@ -79,7 +79,7 @@ function drawArcSegment(ctx, cx, cy, r, lw, a0, a1, c0, c1) {
   ctx.shadowBlur = 0;
 }
 
-function drawGauge(canvas, scoreOverride = null) {
+function drawGauge(canvas, scoreOverride = null, startScore = null) {
   const score =
     scoreOverride !== null
       ? Math.round(scoreOverride)
@@ -177,6 +177,23 @@ function drawGauge(canvas, scoreOverride = null) {
     statusColor = "#ffb300";
   }
 
+  // Incremento del score
+  if (startScore !== null) {
+    const increase = Math.max(0, Math.round(score - startScore));
+
+    if(increase > 0) {
+      ctx.fillStyle = "#34c759";
+      ctx.font = "700 20px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+      ctx.textAlign = "center";
+
+      ctx.fillText(
+        `+${increase}`,
+        cx,
+        H - 85 // separación inferior
+      );
+    }
+  }
+
   ctx.fillStyle = statusColor;
   ctx.font = `700 ${Math.round(r * 0.16)}px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif`;
   ctx.fillText(status, cx, cy + r * 0.36);
@@ -207,7 +224,7 @@ function renderScrollAnimation() {
       progress
     );
 
-    drawGauge(gauge, score);
+    drawGauge(gauge, score, START_SCORES[index]);
   });
 }
 

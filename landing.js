@@ -2,14 +2,38 @@
 // D Ozen - Landing Page JavaScript
 // ========================================
 
-document.addEventListener('DOMContentLoaded', function() {
+const cards = document.querySelectorAll(".h-card");
+
+window.addEventListener("mousemove", (e) => {
+  cards.forEach((card) => {
+    const rect = card.getBoundingClientRect();
+
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    card.style.setProperty("--x", `${x}px`);
+    card.style.setProperty("--y", `${y}px`);
+
+    // Distancia del cursor al borde de la tarjeta
+    const dx = Math.max(rect.left - e.clientX, 0, e.clientX - rect.right);
+    const dy = Math.max(rect.top - e.clientY, 0, e.clientY - rect.bottom);
+    const distance = Math.hypot(dx, dy);
+
+    const radius = 500;
+    const opacity = Math.max(0, 1 - distance / radius);
+
+    card.style.setProperty("--glow-opacity", opacity);
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
   // ========================================
   // Language Toggle
   // ========================================
   const langToggle = document.getElementById('langToggle');
   let currentLang = 'es';
 
-  langToggle.addEventListener('click', function() {
+  langToggle.addEventListener('click', function () {
     currentLang = currentLang === 'es' ? 'en' : 'es';
     updateLanguage();
     updateLangToggleUI();
@@ -18,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
   function updateLangToggleUI() {
     const active = langToggle.querySelector('.lang-active');
     const inactive = langToggle.querySelector('.lang-inactive');
-    
+
     if (currentLang === 'es') {
       active.textContent = 'ES';
       inactive.textContent = 'EN';
@@ -50,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const weekdaysES = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
       const weekdaysEN = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
       const weekdays = currentLang === 'es' ? weekdaysES : weekdaysEN;
-      
+
       weekdaysContainer.innerHTML = weekdays.map(day => `<span>${day}</span>`).join('');
     }
   }
@@ -61,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const mobileMenuBtn = document.getElementById('mobileMenuBtn');
   const navLinks = document.getElementById('navLinks');
 
-  mobileMenuBtn.addEventListener('click', function() {
+  mobileMenuBtn.addEventListener('click', function () {
     navLinks.classList.toggle('active');
     mobileMenuBtn.classList.toggle('active');
   });
@@ -79,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // ========================================
   const contactForm = document.getElementById('contactForm');
 
-  contactForm.addEventListener('submit', function(e) {
+  contactForm.addEventListener('submit', function (e) {
     e.preventDefault();
 
     // Validate date and time selection
@@ -101,10 +125,10 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Form submitted:', data);
 
     // Show success message
-    const successMsg = currentLang === 'es' 
+    const successMsg = currentLang === 'es'
       ? '¡Gracias! Tu cita ha sido agendada. Te contactaremos pronto.'
       : 'Thank you! Your appointment has been scheduled. We will contact you soon.';
-    
+
     alert(successMsg);
 
     // Reset form
@@ -120,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Smooth Scroll for Navigation Links
   // ========================================
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
+    anchor.addEventListener('click', function (e) {
       e.preventDefault();
       const target = document.querySelector(this.getAttribute('href'));
       if (target) {
@@ -168,7 +192,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Navbar Background on Scroll
   // ========================================
   const navbar = document.querySelector('.navbar');
-  
+
   window.addEventListener('scroll', () => {
     if (window.scrollY > 50) {
       navbar.style.background = 'rgba(0, 0, 0, 0.95)';
