@@ -468,15 +468,6 @@ ul {
   background: linear-gradient(to top, rgba(5, 5, 5, 0.8), transparent 50%);
 }
 
-.img-deco {
-  position: absolute;
-  bottom: -1.5rem;
-  right: -1.5rem;
-  width: 8rem;
-  height: 8rem;
-  border: 1px solid rgba(8, 180, 12, 0.2);
-}
-
 .founder-text {
   width: 50%;
   padding: 0 2rem;
@@ -984,10 +975,6 @@ ul {
 
   .founder-text.align-right {
     text-align: left;
-  }
-
-  .img-deco {
-    display: none;
   }
 
   .stats-grid {
